@@ -4,7 +4,7 @@ services:
   database:
     container_name: database
     build:
-      context: data
+      context: data # using a custom mysql image to make it work cross platform especially on macos m1 chip
     env_file: ./.devops/data/.env
     restart: always
     ports:
@@ -19,7 +19,7 @@ services:
     image: wordpress:latest
     env_file: ./.devops/wordpress/.env
     volumes:
-      - wp-content:/var/www/html/wp-content
+      - ./wordpress/wp-content/:/var/www/html/wp-content # only needed folder + database to restore entirely your wordpress content
     restart: always
     ports:
       - 8080:80
